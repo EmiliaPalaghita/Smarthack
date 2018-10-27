@@ -31,6 +31,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        /**
+         * Uncomment this only when you want to populate database with new entries
+         */
+//        Parser.parseExchanges(this);
+
         mFireBaseAuth = FirebaseAuth.getInstance()
         mFirebaseDatabase = FirebaseDatabase.getInstance()
 
