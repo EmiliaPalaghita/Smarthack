@@ -31,6 +31,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+//        this.actionBar.hide()
+
         /**
          * Uncomment this only when you want to populate database for investments with new entries
          */
@@ -108,6 +110,8 @@ class MainActivity : AppCompatActivity() {
             }
             true
         }
+
+        supportActionBar?.hide()
 
 
     }
