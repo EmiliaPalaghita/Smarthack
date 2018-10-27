@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">AInvest</string>
+    <string name="all_money">$123.45</string>
+    <string name="all_procent">5%</string>
 </resources>

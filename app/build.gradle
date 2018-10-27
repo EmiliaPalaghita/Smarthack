@@ -38,5 +38,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-storage:16.0.4'
     implementation 'com.google.firebase:firebase-auth:16.0.5'
     implementation 'com.google.firebase:firebase-database:16.0.4'
+
+    implementation 'com.jjoe64:graphview:4.2.2'
+
 }
 apply plugin: 'com.google.gms.google-services'

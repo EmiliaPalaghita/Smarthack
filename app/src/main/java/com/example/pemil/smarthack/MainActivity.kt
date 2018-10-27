@@ -9,7 +9,6 @@ import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -23,9 +22,6 @@ class MainActivity : AppCompatActivity() {
     private var mFirebaseDatabase: FirebaseDatabase? = null
     private var mUsersDatabasReference: DatabaseReference? = null
     private val userDataSource: UserDataSource = UserDataSource()
-
-    var currentUser: String? = ANONYMOUS
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -63,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun onSignedInInitialized(displayName: String?) {
-        username.text = displayName
+//        username.text = displayName
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -71,8 +67,6 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == RC_SIGN_IN) {
             if (resultCode == RESULT_OK) {
                 Toast.makeText(this, "Signed in!", Toast.LENGTH_SHORT).show()
-                currentUser = mFireBaseAuth?.currentUser?.uid
-                mUsersDatabasReference?.push()?.setValue(currentUser)
             } else if (resultCode == RESULT_CANCELED) {
                 Toast.makeText(this, "Sign in canceled", Toast.LENGTH_SHORT).show()
                 finish()
