@@ -17,6 +17,9 @@ import android.R.attr.fragment
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.ActionBar
 import com.example.pemil.smarthack.R.id.navigationView
+import android.R
+import android.support.annotation.NonNull
+import android.view.MenuItem
 
 
 class MainActivity : AppCompatActivity() {
@@ -75,6 +78,16 @@ class MainActivity : AppCompatActivity() {
 
         toolbar = supportActionBar!!
         val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
+
+//        bottomNavigation.setOnNavigationItemSelectedListener(
+//            object : BottomNavigationView.OnNavigationItemSelectedListener {
+//                override fun onNavigationItemSelected(item: MenuItem): Boolean {
+//                    when (item.getItemId()) {
+//
+//                    }
+//                    return true
+//                }
+//            })
 
 //        home_button.setOnClickListener {
 //            val homeFragment = HomeFragment()
