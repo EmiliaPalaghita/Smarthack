@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.example.pemil.smarthack.DataSource.UserDataSource
 import com.example.pemil.smarthack.ui.home.HomeFragment
+import com.example.pemil.smarthack.ui.home.MyInvestmentFragment
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -51,21 +52,27 @@ class MainActivity : AppCompatActivity() {
             } else {
                 //user is signed out
                 startActivityForResult(
-                        AuthUI.getInstance()
-                                .createSignInIntentBuilder()
-                                .setIsSmartLockEnabled(false)
-                                .setAvailableProviders(
-                                        Arrays.asList<AuthUI.IdpConfig>(
-                                                AuthUI.IdpConfig.GoogleBuilder().build(),
-                                                AuthUI.IdpConfig.EmailBuilder().build()
-                                        )
-                                )
-                                .build(),
-                        RC_SIGN_IN
+                    AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setIsSmartLockEnabled(false)
+                        .setAvailableProviders(
+                            Arrays.asList<AuthUI.IdpConfig>(
+                                AuthUI.IdpConfig.GoogleBuilder().build(),
+                                AuthUI.IdpConfig.EmailBuilder().build()
+                            )
+                        )
+                        .build(),
+                    RC_SIGN_IN
                 )
 
             }
         }
+
+        val homeFragment = HomeFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragment_container, homeFragment)
+            .commit()
+
         toolbar = supportActionBar!!
         val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
 
