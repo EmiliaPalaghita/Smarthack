@@ -1,57 +1,66 @@
 package com.example.pemil.smarthack.DataSource;
 
 import android.util.Log;
-
+import com.example.pemil.smarthack.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.example.pemil.smarthack.Models.User;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.database.*;
 
 public class UserDataSource {
-        private DatabaseReference table;
-        private FirebaseAuth auth;
-        private FirebaseDatabase dataBase;
-        private static User thisUser;
+    private DatabaseReference table;
+    private FirebaseAuth auth;
+    private FirebaseDatabase dataBase;
+    private static User thisUser;
 
-        public UserDataSource() {
-            this.auth = FirebaseAuth.getInstance();
-            this.dataBase = FirebaseDatabase.getInstance();
-            this.table = dataBase.getReference("Users");
-        }
+    public UserDataSource() {
+        this.auth = FirebaseAuth.getInstance();
+        this.dataBase = FirebaseDatabase.getInstance();
+        this.table = dataBase.getReference().child("users");
+    }
 
-        public void sendToDB(User user) {
-            this.table.child(user.getId()).setValue(user);
-            Log.d("DATABASE USER", user.toString());
-        }
+    public void sendUserToDB(User user) {
+        this.table.child(user.getId()).setValue(user);
+        Log.d("DATABASE USER", user.toString());
+    }
 
-        public void getFromDB() {
-            final FirebaseUser user = this.auth.getCurrentUser();
-            table.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    thisUser = dataSnapshot.getValue(User.class);
-                }
+    public void getCurrentUserFromDB() {
+        final FirebaseUser user = this.auth.getCurrentUser();
+        table.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                thisUser = dataSnapshot.getValue(User.class);
+            }
 
-                @Override
-                public void onCancelled(DatabaseError databaseError) {
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
 
-                }
-            });
-        }
+            }
+        });
+    }
 
-        public DatabaseReference getTable() {
-            return this.table;
-        }
+    public DatabaseReference getTable() {
+        return this.table;
+    }
 
-        public FirebaseAuth getAuth() {
-            return this.auth;
-        }
+    public FirebaseAuth getAuth() {
+        return this.auth;
+    }
 
-        public FirebaseDatabase getDataBase() {
-            return this.dataBase;
-        }
+    public FirebaseDatabase getDataBase() {
+        return this.dataBase;
+    }
+
+    public User createNewUser(FirebaseUser currentUser) {
+        return new User(
+                currentUser.getDisplayName(),
+                null,
+                null,
+                null,
+                null,
+                currentUser.getEmail(),
+                currentUser.getUid(),
+                null,
+                null
+        );
+    }
 }
