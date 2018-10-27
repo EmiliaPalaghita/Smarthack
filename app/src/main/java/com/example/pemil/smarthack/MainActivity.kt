@@ -2,7 +2,10 @@ package com.example.pemil.smarthack
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
+import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
+import android.view.MenuItem
 import android.widget.Toast
 import com.example.pemil.smarthack.DataSource.UserDataSource
 import com.example.pemil.smarthack.ui.home.HomeFragment
@@ -11,15 +14,7 @@ import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
-import android.R.attr.fragment
-import android.support.design.widget.BottomNavigationView
-import android.support.v7.app.ActionBar
-import com.example.pemil.smarthack.R.id.navigationView
-import android.R
-import android.support.annotation.NonNull
-import android.view.MenuItem
 
 
 class MainActivity : AppCompatActivity() {
@@ -79,55 +74,43 @@ class MainActivity : AppCompatActivity() {
         toolbar = supportActionBar!!
         val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
 
-//        bottomNavigation.setOnNavigationItemSelectedListener(
-//            object : BottomNavigationView.OnNavigationItemSelectedListener {
-//                override fun onNavigationItemSelected(item: MenuItem): Boolean {
-//                    when (item.getItemId()) {
-//
-//                    }
-//                    return true
-//                }
-//            })
+        bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.home_button -> {
+                    val homeFragment = HomeFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, homeFragment)
+                        .commit()
+                }
+                R.id.my_investments_button -> {
 
-//        home_button.setOnClickListener {
-//            val homeFragment = HomeFragment()
-//            supportFragmentManager.beginTransaction()
-//                    .replace(R.id.fragment_container, homeFragment)
-//                    .commit()
-//        }
-//
-//        my_investments_button.setOnClickListener {
-//            //TODO - open MyInvestmentsFragment
-//            /*
-//            * val myInvestmentFragment = MyInvestmentFragment()
-//            supportFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container, myInvestmentFragment)
-//            .commit()
-//            *
-//            * */
-//        }
-//
-//        new_investments_button.setOnClickListener {
-//            //TODO - open NewInvestmentFragment
-//            /*
-//            * val newInvestmentFragment = NewInvestmentFragment()
-//            supportFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container, newInvestmentFragment)
-//            .commit()
-//            *
-//            * */
-//        }
-//
-//        profile_button.setOnClickListener {
-//            //TODO - open ProfileFragment
-//            /*
-//            * val profileFragment = ProfileFragment()
-//            supportFragmentManager.beginTransaction()
-//            .replace(R.id.fragment_container, profileFragment)
-//            .commit()
-//            *
-//            * */
-//        }
+                    val myInvestmentFragment = MyInvestmentFragment()
+                    supportFragmentManager.beginTransaction()
+                    .replace(R.id.fragment_container, myInvestmentFragment)
+                    .commit()
+
+                }
+                R.id.new_investments_button -> {
+
+//                    val newInvestmentFragment = NewInvestmentFragment()
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.fragment_container, newInvestmentFragment)
+//                        .commit()
+
+                }
+                R.id.profile_button -> {
+
+//                    val profileFragment = ProfileFragment()
+//                    supportFragmentManager.beginTransaction()
+//                        .replace(R.id.fragment_container, profileFragment)
+//                        .commit()
+
+                }
+            }
+            true
+        }
+
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
