@@ -1,5 +1,20 @@
 <resources>
+    <string name="interests">Interests</string>
+    <string name="first_name">First name</string>
+    <string name="surname">Surname</string>
+    <string name="country">Country</string>
+    <string name="telephone">Telephone</string>
+    <string name="birthday">Birthday</string>
+    <string name="email">Email</string>
+    <string name="personal_data">Personal Data</string>
+    <string name="accounts">Accounts</string>
+    <string name="save">Save</string>
+
     <string name="app_name">AInvest</string>
     <string name="all_money">$123.45</string>
     <string name="all_procent">5%</string>
+    <string name="home">home</string>
+    <string name="my_investments">My investments</string>
+    <string name="new_investments">new investments</string>
+    <string name="profile">profile</string>
 </resources>
