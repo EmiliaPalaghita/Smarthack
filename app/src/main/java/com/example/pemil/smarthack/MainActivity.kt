@@ -4,9 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
+import com.example.pemil.smarthack.DataSource.UserDataSource
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
@@ -22,6 +22,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var mAuthStateListener: FirebaseAuth.AuthStateListener
     private var mFirebaseDatabase: FirebaseDatabase? = null
     private var mUsersDatabasReference: DatabaseReference? = null
+    private val userDataSource: UserDataSource = UserDataSource()
 
     var currentUser: String? = ANONYMOUS
 
@@ -35,31 +36,12 @@ class MainActivity : AppCompatActivity() {
 
         mUsersDatabasReference = mFirebaseDatabase?.reference?.child("users")
 
-//        mUsersDatabasReference?.addChildEventListener(object : ChildEventListener {
-//            override fun onChildAdded(dataSnapshot: DataSnapshot, s: String?) {
-//                if (dataSnapshot.exists()) {
-//                    //user already in database
-//                } else {
-//                    //TODO - create user for database
-//                    mUsersDatabasReference?.push()?.setValue(currentUser)
-//                }
-//            }
-//
-//            override fun onChildChanged(dataSnapshot: DataSnapshot, s: String?) {}
-//
-//            override fun onChildRemoved(dataSnapshot: DataSnapshot) {}
-//
-//            override fun onChildMoved(dataSnapshot: DataSnapshot, s: String?) {}
-//
-//            override fun onCancelled(databaseError: DatabaseError) {}
-//        })
-
         mAuthStateListener = FirebaseAuth.AuthStateListener { firebaseAuth ->
             val user = firebaseAuth.currentUser
             if (user != null) {
                 //user is signed in
                 onSignedInInitialized(user.displayName)
-//                mUsersDatabasReference?.push()?.setValue()
+                userDataSource.sendUserToDB(userDataSource.createNewUser(user))
             } else {
                 //user is signed out
                 startActivityForResult(
