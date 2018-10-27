@@ -11,6 +11,7 @@ import com.example.pemil.smarthack.R;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.opencsv.CSVReader;
+import com.recombee.api_client.RecombeeClient;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
@@ -21,11 +22,14 @@ public class Parser {
     private static final FirebaseDatabase dataBase = FirebaseDatabase.getInstance();
     private static final DatabaseReference table = dataBase.getReference("Symbols");
     private static final ObservableInteger observableInteger = new ObservableInteger();
+    private RecombeeClient client = new RecombeeClient("smarthack-2018 ", "PU6qyPll2goGUbwApmeY0O2BYJFBVYTRIrbI8cV4R8v0LzFRjem5VsanNYtp66Sy");
+    private static RequestQueue alphaQueue;
 
 
     public static void parseExchanges(Context context) {
         List<String> exchanges = readFileFromRow(context, R.raw.exchanges);
         RequestQueue queue = Volley.newRequestQueue(context);
+
         observableInteger.setListener(new ObservableInteger.ChangeListener() {
             @Override
             public void onChange() {
@@ -96,10 +100,15 @@ public class Parser {
                 }
 
                 symbols.get(sector).get(industry).add(symbol);
+                addItemToAI(sector, industry, symbol);
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void addItemToAI(String sector, String industry, String symbol) {
+
     }
 
     private static List<String> readFileFromRow(Context context, int resId) {
