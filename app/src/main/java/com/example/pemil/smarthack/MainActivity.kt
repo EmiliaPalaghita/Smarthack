@@ -13,6 +13,9 @@ import com.google.firebase.database.FirebaseDatabase
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 import android.R.attr.fragment
+import android.support.design.widget.BottomNavigationView
+import android.support.v7.app.ActionBar
+import com.example.pemil.smarthack.R.id.navigationView
 
 
 class MainActivity : AppCompatActivity() {
@@ -25,7 +28,7 @@ class MainActivity : AppCompatActivity() {
     private var mFirebaseDatabase: FirebaseDatabase? = null
     private var mUsersDatabasReference: DatabaseReference? = null
     private val userDataSource: UserDataSource = UserDataSource()
-
+    private lateinit var toolbar: ActionBar
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -63,46 +66,48 @@ class MainActivity : AppCompatActivity() {
 
             }
         }
+        toolbar = supportActionBar!!
+        val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
 
-        home_button.setOnClickListener {
-            val homeFragment = HomeFragment()
-            supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, homeFragment)
-                    .commit()
-        }
-
-        my_investments_button.setOnClickListener {
-            //TODO - open MyInvestmentsFragment
-            /*
-            * val myInvestmentFragment = MyInvestmentFragment()
-            supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, myInvestmentFragment)
-            .commit()
-            *
-            * */
-        }
-
-        new_investments_button.setOnClickListener {
-            //TODO - open NewInvestmentFragment
-            /*
-            * val newInvestmentFragment = NewInvestmentFragment()
-            supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, newInvestmentFragment)
-            .commit()
-            *
-            * */
-        }
-
-        profile_button.setOnClickListener {
-            //TODO - open ProfileFragment
-            /*
-            * val profileFragment = ProfileFragment()
-            supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, profileFragment)
-            .commit()
-            *
-            * */
-        }
+//        home_button.setOnClickListener {
+//            val homeFragment = HomeFragment()
+//            supportFragmentManager.beginTransaction()
+//                    .replace(R.id.fragment_container, homeFragment)
+//                    .commit()
+//        }
+//
+//        my_investments_button.setOnClickListener {
+//            //TODO - open MyInvestmentsFragment
+//            /*
+//            * val myInvestmentFragment = MyInvestmentFragment()
+//            supportFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container, myInvestmentFragment)
+//            .commit()
+//            *
+//            * */
+//        }
+//
+//        new_investments_button.setOnClickListener {
+//            //TODO - open NewInvestmentFragment
+//            /*
+//            * val newInvestmentFragment = NewInvestmentFragment()
+//            supportFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container, newInvestmentFragment)
+//            .commit()
+//            *
+//            * */
+//        }
+//
+//        profile_button.setOnClickListener {
+//            //TODO - open ProfileFragment
+//            /*
+//            * val profileFragment = ProfileFragment()
+//            supportFragmentManager.beginTransaction()
+//            .replace(R.id.fragment_container, profileFragment)
+//            .commit()
+//            *
+//            * */
+//        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
