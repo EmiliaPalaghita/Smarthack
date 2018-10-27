@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.ActionBar
 import android.support.v7.app.AppCompatActivity
-import android.view.MenuItem
 import android.widget.Toast
 import com.example.pemil.smarthack.DataSource.UserDataSource
 import com.example.pemil.smarthack.ui.home.HomeFragment
@@ -86,8 +85,8 @@ class MainActivity : AppCompatActivity() {
 
                     val myInvestmentFragment = MyInvestmentFragment()
                     supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, myInvestmentFragment)
-                    .commit()
+                        .replace(R.id.fragment_container, myInvestmentFragment)
+                        .commit()
 
                 }
                 R.id.new_investments_button -> {
