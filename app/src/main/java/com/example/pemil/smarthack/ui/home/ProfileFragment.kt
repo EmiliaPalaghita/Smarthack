@@ -1,5 +1,6 @@
 package com.example.pemil.smarthack.ui.home
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -73,6 +74,11 @@ class ProfileFragment : Fragment() {
             edit_email.isEnabled = true
             edit_country.isEnabled = true
             edit_save_button.visibility = View.VISIBLE
+        }
+
+        edit_interests_button.setOnClickListener {
+            val intent = Intent(this.context, InterestsActivity::class.java)
+            startActivity(intent)
         }
     }
 }
