@@ -52,7 +52,7 @@ public class MyInvestmentFragment extends Fragment {
         // preparing list data
 
         final FirebaseUser user = dataSource.getAuth().getCurrentUser();
-        dataSource.getTable().child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        dataSource.getInvestmentsTable().child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
@@ -79,8 +79,8 @@ public class MyInvestmentFragment extends Fragment {
 
     private void prepareListData(List<Investment> invetments) {
 
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
 
         for (Investment inv : invetments) {
 
