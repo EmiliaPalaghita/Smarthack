@@ -10,6 +10,7 @@ import com.example.pemil.smarthack.DataSource.UserDataSource
 import com.example.pemil.smarthack.ui.home.HomeFragment
 import com.example.pemil.smarthack.ui.home.MyInvestmentFragment
 import com.example.pemil.smarthack.ui.home.NewInvestmentFragment
+import com.example.pemil.smarthack.ui.home.ProfileFragment
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -101,10 +102,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.profile_button -> {
 
-//                    val profileFragment = ProfileFragment()
-//                    supportFragmentManager.beginTransaction()
-//                        .replace(R.id.fragment_container, profileFragment)
-//                        .commit()
+                    val profileFragment = ProfileFragment()
+                    supportFragmentManager.beginTransaction()
+                        .replace(R.id.fragment_container, profileFragment)
+                        .commit()
 
                 }
             }
