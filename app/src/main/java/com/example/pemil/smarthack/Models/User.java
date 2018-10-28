@@ -1,6 +1,9 @@
 package com.example.pemil.smarthack.Models;
 
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * @atotputerNICA
  *
@@ -18,6 +21,7 @@ public class User {
     private String id;
     private String URI;
     private String account;
+    private HashMap<String, List<String>> preferences;
 
     public User(String name, String country, String birthday,
                 Long telephone, String email, String id, String URI, String account) {
@@ -99,6 +103,14 @@ public class User {
         this.account = account;
     }
 
+    public HashMap<String, List<String>> getPreferences() {
+        return preferences;
+    }
+
+    public void setPreferences(HashMap<String, List<String>> preferences) {
+        this.preferences = preferences;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -110,6 +122,7 @@ public class User {
                 ", id='" + id + '\'' +
                 ", URI='" + URI + '\'' +
                 ", account='" + account + '\'' +
+                ", preferences=" + preferences +
                 '}';
     }
 }

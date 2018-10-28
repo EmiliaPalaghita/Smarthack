@@ -1,44 +1,47 @@
 package com.example.pemil.smarthack.DataSource;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import com.example.pemil.smarthack.Models.Investment;
+import com.example.pemil.smarthack.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class InvestmentDataSource { private DatabaseReference table;
+public class InvestmentDataSource {
 
+    private DatabaseReference investmentsTable;
+    private DatabaseReference categoriesTable;
     private FirebaseAuth auth;
     private FirebaseDatabase dataBase;
     public List<Investment> investments;
-    final FirebaseUser user;
+    private final FirebaseUser user;
 
     public InvestmentDataSource() {
         this.auth = FirebaseAuth.getInstance();
         this.dataBase = FirebaseDatabase.getInstance();
-        this.table = dataBase.getReference().child("investment");
+        this.investmentsTable = dataBase.getReference().child("investment");
+        this.categoriesTable = dataBase.getReference().child("Symbols");
         this.user = this.auth.getCurrentUser();
         this.investments = new ArrayList<>();
     }
 
     public void sendInvestmentToDB(Investment investment) {
-        table.child(user.getUid()).child(investment.getName()).setValue(investment);
+        investmentsTable.child(user.getUid()).child(investment.getName()).setValue(investment);
         Log.d("DATABASE INVESTMENT", user.toString());
     }
 
     public void selectInvestments() {
         final FirebaseUser user = this.auth.getCurrentUser();
-        table.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        investmentsTable.child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                for (DataSnapshot postSnapshot : dataSnapshot.getChildren()) {
                     investments.add(postSnapshot.getValue(Investment.class));
                     Log.i("investments", postSnapshot.toString());
-
                 }
             }
 
@@ -49,9 +52,37 @@ public class InvestmentDataSource { private DatabaseReference table;
         });
     }
 
+    public void selectAllInvestmentsForCurrentUser(final User user) {
+        List<String> categories = new ArrayList<>(user.getPreferences().keySet());
 
-    public DatabaseReference getTable() {
-        return this.table;
+        final List<Investment> predictedInvestments = new ArrayList<>();
+
+        for (final String category : categories) {
+            categoriesTable.child(category).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    for (DataSnapshot data : dataSnapshot.getChildren()) {
+                        if (user.getPreferences().get(category).contains(data.getKey())) {
+                            for (DataSnapshot predictedData : dataSnapshot.getChildren()) {
+                                predictedInvestments.add(predictedData.getValue(Investment.class));
+                            }
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+        }
+
+
+    }
+
+
+    public DatabaseReference getInvestmentsTable() {
+        return this.investmentsTable;
     }
 
     public FirebaseAuth getAuth() {
