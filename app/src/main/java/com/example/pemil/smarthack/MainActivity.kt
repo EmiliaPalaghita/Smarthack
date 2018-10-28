@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import com.example.pemil.smarthack.DataSource.UserDataSource
 import com.example.pemil.smarthack.ui.home.HomeFragment
+import com.example.pemil.smarthack.parse.utils.Parser
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -33,7 +34,8 @@ class MainActivity : AppCompatActivity() {
         /**
          * Uncomment this only when you want to populate database for investments with new entries
          */
-//        Parser.parseExchanges(this);
+//        var parser = Parser();
+//        parser.parseExchanges(this);
 
         mFireBaseAuth = FirebaseAuth.getInstance()
         mFirebaseDatabase = FirebaseDatabase.getInstance()
