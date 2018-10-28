@@ -1,16 +1,24 @@
 package com.example.pemil.smarthack.ui.home;
 
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ExpandableListView;
+import com.example.pemil.smarthack.DataSource.InvestmentDataSource;
 import com.example.pemil.smarthack.Models.ExpandableListAdapter;
+import com.example.pemil.smarthack.Models.Investment;
 import com.example.pemil.smarthack.R;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,6 +30,9 @@ public class MyInvestmentFragment extends Fragment {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
+    InvestmentDataSource dataSource =  new InvestmentDataSource();
+    List<Investment> investments = new ArrayList<>();
+    Context context;
 
     @Nullable
     @Override
@@ -33,55 +44,53 @@ public class MyInvestmentFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        context= this.getContext();
+        for (int i = 0; i < 10; i++) {
+            dataSource.sendInvestmentToDB(new Investment("dana" + i, "dana" + i, "dana" + i, "dana" + i, "dana" + i,"dana" + i));
+        }
         // get the listview
         expListView = view.findViewById(R.id.lvExp);
 
         // preparing list data
-        prepareListData();
 
-        listAdapter = new ExpandableListAdapter(this.getContext(), listDataHeader, listDataChild);
+        final FirebaseUser user = dataSource.getAuth().getCurrentUser();
+        dataSource.getTable().child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                    investments.add(postSnapshot.getValue(Investment.class));
+                    Log.i("investments", postSnapshot.toString());
 
-        // setting list adapter
-        expListView.setAdapter(listAdapter);
+                }
+                Log.i("invest", investments.toString());
+                prepareListData(investments);
+
+                listAdapter = new ExpandableListAdapter(context, listDataHeader, listDataChild);
+
+                // setting list adapter
+                expListView.setAdapter(listAdapter);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
-    private void prepareListData() {
-        listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<>();
+    private void prepareListData(List<Investment> invetments) {
 
-        // Adding child data
-        listDataHeader.add("Top 250");
-        listDataHeader.add("Now Showing");
-        listDataHeader.add("Coming Soon..");
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
 
-        // Adding child data
-        List<String> top250 = new ArrayList<>();
-        top250.add("The Shawshank Redemption");
-        top250.add("The Godfather");
-        top250.add("The Godfather: Part II");
-        top250.add("Pulp Fiction");
-        top250.add("The Good, the Bad and the Ugly");
-        top250.add("The Dark Knight");
-        top250.add("12 Angry Men");
+        for (Investment inv : invetments) {
 
-        List<String> nowShowing = new ArrayList<>();
-        nowShowing.add("The Conjuring");
-        nowShowing.add("Despicable Me 2");
-        nowShowing.add("Turbo");
-        nowShowing.add("Grown Ups 2");
-        nowShowing.add("Red 2");
-        nowShowing.add("The Wolverine");
+            listDataHeader.add(inv.getName());
+            listDataChild.put(inv.getName(), dataSource.getInvestmentDetails(inv));
+            Log.i("expd", dataSource.getInvestmentDetails(inv).toString());
 
-        List<String> comingSoon = new ArrayList<>();
-        comingSoon.add("2 Guns");
-        comingSoon.add("The Smurfs 2");
-        comingSoon.add("The Spectacular Now");
-        comingSoon.add("The Canyons");
-        comingSoon.add("Europa Report");
+        }
 
-        listDataChild.put(listDataHeader.get(0), top250); // Header, Child data
-        listDataChild.put(listDataHeader.get(1), nowShowing);
-        listDataChild.put(listDataHeader.get(2), comingSoon);
     }
 }
