@@ -42,6 +42,9 @@ class ProfileFragment : Fragment() {
                 user_profile_name.text = thisUser?.name
                 edit_email.setText(thisUser?.email)
                 edit_telephone.setText(thisUser?.telephone.toString())
+                if (thisUser?.telephone == null)
+                    edit_telephone.setText("")
+                else edit_telephone.setText(thisUser?.telephone.toString())
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
