@@ -62,6 +62,7 @@ class MainActivity : AppCompatActivity() {
                                                 AuthUI.IdpConfig.EmailBuilder().build()
                                         )
                                 )
+                                .setLogo(R.drawable.logo_bigger)
                                 .build(),
                         RC_SIGN_IN
                 )
