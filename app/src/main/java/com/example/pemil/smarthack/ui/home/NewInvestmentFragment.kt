@@ -69,7 +69,9 @@ class NewInvestmentFragment : Fragment() {
                             }
                         }
 
-                        Log.d("allinvestments", investments.toString())
+                        val filteredInvestments = investments.filter { it -> it.predictedValue - it.close > 0 }
+
+                        Log.d("allinvestments", filteredInvestments.toString())
                     }
 
                     override fun onCancelled(databaseError: DatabaseError) {
