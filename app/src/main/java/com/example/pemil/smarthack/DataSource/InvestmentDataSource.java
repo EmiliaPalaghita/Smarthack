@@ -3,16 +3,19 @@ package com.example.pemil.smarthack.DataSource;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import com.example.pemil.smarthack.Models.Investment;
+import com.example.pemil.smarthack.Models.PredictedInvestment;
 import com.example.pemil.smarthack.Models.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 public class InvestmentDataSource {
 
+    private DatabaseReference preferencesTable;
     private DatabaseReference investmentsTable;
     private DatabaseReference categoriesTable;
     private FirebaseAuth auth;
@@ -23,7 +26,8 @@ public class InvestmentDataSource {
     public InvestmentDataSource() {
         this.auth = FirebaseAuth.getInstance();
         this.dataBase = FirebaseDatabase.getInstance();
-        this.investmentsTable = dataBase.getReference().child("investment");
+        this.preferencesTable = dataBase.getReference().child("preferences");
+        this.investmentsTable = dataBase.getReference().child("investments");
         this.categoriesTable = dataBase.getReference().child("Symbols");
         this.user = this.auth.getCurrentUser();
         this.investments = new ArrayList<>();
@@ -52,30 +56,37 @@ public class InvestmentDataSource {
         });
     }
 
-    public void selectAllInvestmentsForCurrentUser(final User user) {
-        List<String> categories = new ArrayList<>(user.getPreferences().keySet());
+    public void selectAllInvestmentsForCurrentUser(final HashMap<String, List<String>> preferences) {
+        final List<String> categories = new ArrayList<>(preferences.keySet());
 
-        final List<Investment> predictedInvestments = new ArrayList<>();
+        final List<PredictedInvestment> investments = new ArrayList<>();
 
-        for (final String category : categories) {
-            categoriesTable.child(category).addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    for (DataSnapshot data : dataSnapshot.getChildren()) {
-                        if (user.getPreferences().get(category).contains(data.getKey())) {
-                            for (DataSnapshot predictedData : dataSnapshot.getChildren()) {
-                                predictedInvestments.add(predictedData.getValue(Investment.class));
+        final List<PredictedInvestment> predictedInvestments = new ArrayList<>();
+        categoriesTable.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for(DataSnapshot cat : dataSnapshot.getChildren()) {
+                    Log.d("blablabla", cat.toString());
+                    if(categories.contains(cat.toString())) {
+                        for(String subcategory : preferences.get(cat.toString())) {
+                            Log.d("blablabla1", subcategory.toString());
+                            for(DataSnapshot invest : cat.child(subcategory).getChildren()) {
+                                Log.d("finallist", invest.toString());
+                                investments.add(invest.getValue(PredictedInvestment.class));
                             }
                         }
                     }
                 }
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d("allinvestments", investments.toString());
+            }
 
-                }
-            });
-        }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
 
     }
