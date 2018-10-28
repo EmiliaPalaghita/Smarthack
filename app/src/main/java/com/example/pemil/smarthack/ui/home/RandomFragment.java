@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class MyInvestmentFragment extends Fragment {
+public class RandomFragment extends Fragment {
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
@@ -37,7 +37,7 @@ public class MyInvestmentFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.invest_long_version, container, false);
+        return inflater.inflate(R.layout.new_investment, container, false);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -45,9 +45,8 @@ public class MyInvestmentFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         context= this.getContext();
-
         // get the listview
-        expListView = view.findViewById(R.id.lvExp);
+        expListView = view.findViewById(R.id.lvExp2);
 
         // preparing list data
 
@@ -79,8 +78,8 @@ public class MyInvestmentFragment extends Fragment {
 
     private void prepareListData(List<Investment> invetments) {
 
-        listDataHeader = new ArrayList<>();
-        listDataChild = new HashMap<>();
+        listDataHeader = new ArrayList<String>();
+        listDataChild = new HashMap<String, List<String>>();
 
         for (Investment inv : invetments) {
 
