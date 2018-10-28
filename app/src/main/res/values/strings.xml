@@ -13,8 +13,8 @@
     <string name="app_name">AInvest</string>
     <string name="all_money">$123.45</string>
     <string name="all_procent">5%</string>
-    <string name="home">home</string>
     <string name="my_investments">My investments</string>
-    <string name="new_investments">new investments</string>
-    <string name="profile">profile</string>
+    <string name="new_investments">New investments</string>
+    <string name="profile">Profile</string>
+    <string name="home">Home</string>
 </resources>

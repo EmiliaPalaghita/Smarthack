@@ -52,17 +52,17 @@ class MainActivity : AppCompatActivity() {
             } else {
                 //user is signed out
                 startActivityForResult(
-                    AuthUI.getInstance()
-                        .createSignInIntentBuilder()
-                        .setIsSmartLockEnabled(false)
-                        .setAvailableProviders(
-                            Arrays.asList<AuthUI.IdpConfig>(
-                                AuthUI.IdpConfig.GoogleBuilder().build(),
-                                AuthUI.IdpConfig.EmailBuilder().build()
-                            )
-                        )
-                        .build(),
-                    RC_SIGN_IN
+                        AuthUI.getInstance()
+                                .createSignInIntentBuilder()
+                                .setIsSmartLockEnabled(false)
+                                .setAvailableProviders(
+                                        Arrays.asList<AuthUI.IdpConfig>(
+                                                AuthUI.IdpConfig.GoogleBuilder().build(),
+                                                AuthUI.IdpConfig.EmailBuilder().build()
+                                        )
+                                )
+                                .build(),
+                        RC_SIGN_IN
                 )
 
             }
@@ -70,8 +70,8 @@ class MainActivity : AppCompatActivity() {
 
         val homeFragment = HomeFragment()
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, homeFragment)
-            .commit()
+                .replace(R.id.fragment_container, homeFragment)
+                .commit()
 
         toolbar = supportActionBar!!
         val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
@@ -79,17 +79,16 @@ class MainActivity : AppCompatActivity() {
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.home_button -> {
-                    val homeFragment = HomeFragment()
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, homeFragment)
-                        .commit()
+                            .replace(R.id.fragment_container, homeFragment)
+                            .commit()
                 }
                 R.id.my_investments_button -> {
 
                     val myInvestmentFragment = MyInvestmentFragment()
                     supportFragmentManager.beginTransaction()
-                        .replace(R.id.fragment_container, myInvestmentFragment)
-                        .commit()
+                            .replace(R.id.fragment_container, myInvestmentFragment)
+                            .commit()
 
                 }
                 R.id.new_investments_button -> {
