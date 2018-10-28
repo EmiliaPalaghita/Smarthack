@@ -9,7 +9,6 @@ import android.widget.Toast
 import com.example.pemil.smarthack.DataSource.UserDataSource
 import com.example.pemil.smarthack.ui.home.HomeFragment
 import com.example.pemil.smarthack.ui.home.MyInvestmentFragment
-import com.example.pemil.smarthack.ui.home.NewInvestmentFragment
 import com.example.pemil.smarthack.ui.home.ProfileFragment
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth

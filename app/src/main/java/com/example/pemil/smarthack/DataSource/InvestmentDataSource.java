@@ -17,10 +17,10 @@ public class InvestmentDataSource { private DatabaseReference table;
     public List<Investment> investments;
     final FirebaseUser user;
 
-    public InvestmentDataSource() {
+    public InvestmentDataSource(String table) {
         this.auth = FirebaseAuth.getInstance();
         this.dataBase = FirebaseDatabase.getInstance();
-        this.table = dataBase.getReference().child("investment");
+        this.table = dataBase.getReference().child(table);
         this.user = this.auth.getCurrentUser();
         this.investments = new ArrayList<>();
     }
