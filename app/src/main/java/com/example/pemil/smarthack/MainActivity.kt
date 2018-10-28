@@ -9,6 +9,7 @@ import android.widget.Toast
 import com.example.pemil.smarthack.DataSource.UserDataSource
 import com.example.pemil.smarthack.ui.home.HomeFragment
 import com.example.pemil.smarthack.ui.home.MyInvestmentFragment
+import com.example.pemil.smarthack.ui.home.NewInvestmentFragment
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
@@ -93,10 +94,10 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.new_investments_button -> {
 
-//                    val newInvestmentFragment = NewInvestmentFragment()
-//                    supportFragmentManager.beginTransaction()
-//                        .replace(R.id.fragment_container, newInvestmentFragment)
-//                        .commit()
+                    val newInvestmentFragment = NewInvestmentFragment()
+                    supportFragmentManager.beginTransaction()
+                            .replace(R.id.fragment_container, newInvestmentFragment)
+                            .commit()
 
                 }
                 R.id.profile_button -> {
