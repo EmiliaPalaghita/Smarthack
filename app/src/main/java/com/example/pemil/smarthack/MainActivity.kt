@@ -9,11 +9,13 @@ import android.widget.Toast
 import com.example.pemil.smarthack.DataSource.UserDataSource
 import com.example.pemil.smarthack.ui.home.HomeFragment
 import com.example.pemil.smarthack.ui.home.MyInvestmentFragment
+import com.example.pemil.smarthack.ui.home.NewInvestmentFragment
 import com.example.pemil.smarthack.ui.home.ProfileFragment
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import kotlinx.android.synthetic.main.activity_main.*
 import java.util.*
 
 
@@ -75,7 +77,7 @@ class MainActivity : AppCompatActivity() {
                 .commit()
 
         toolbar = supportActionBar!!
-        val bottomNavigation: BottomNavigationView = findViewById(R.id.navigationView)
+        val bottomNavigation: BottomNavigationView = navigationView
 
         bottomNavigation.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {

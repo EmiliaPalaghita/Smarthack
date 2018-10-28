@@ -30,7 +30,7 @@ public class MyInvestmentFragment extends Fragment {
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
-    InvestmentDataSource dataSource =  new InvestmentDataSource("investment");
+    InvestmentDataSource dataSource =  new InvestmentDataSource();
     List<Investment> investments = new ArrayList<>();
     Context context;
 

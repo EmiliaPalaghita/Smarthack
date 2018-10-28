@@ -24,13 +24,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class NewInvestmentFragment extends Fragment {
+public class RandomFragment extends Fragment {
 
     ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
-    InvestmentDataSource dataSource =  new InvestmentDataSource("");
+    InvestmentDataSource dataSource =  new InvestmentDataSource();
     List<Investment> investments = new ArrayList<>();
     Context context;
 
@@ -51,7 +51,7 @@ public class NewInvestmentFragment extends Fragment {
         // preparing list data
 
         final FirebaseUser user = dataSource.getAuth().getCurrentUser();
-        dataSource.getTable().child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+        dataSource.getInvestmentsTable().child(user.getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {

@@ -116,7 +116,21 @@ public class InvestmentDataSource {
         list.add(i.getOpen().toString());
         list.add(i.getPredictedValue().toString());
         list.add(i.getSector());
-        list.add(i.getVolum().toString());
+//        list.add(i.getVolum().toString());
+        return list;
+    }
+    public List<String> getPredInvestmentDetails(PredictedInvestment i) {
+        List<String> list = new ArrayList<>();
+        list.add("" + i.getClose().toString());
+        list.add(i.getHigh().toString());
+        list.add(i.getIndustry());
+        list.add(i.getLow().toString());
+        list.add(i.getOpen().toString());
+        list.add(i.getPredictedValue().toString());
+        list.add(i.getSector());
+        double procent = i.getPredictedValue() - i.getClose();
+        list.add(String.valueOf(procent) + "%");
+//        list.add(i.getVolum().toString());
         return list;
     }
 
