@@ -46,7 +46,7 @@ public class MyInvestmentFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         context= this.getContext();
         for (int i = 0; i < 10; i++) {
-            dataSource.sendInvestmentToDB(new Investment("dana" + i, "dana" + i, "dana" + i, "dana" + i, "dana" + i,"dana" + i));
+            dataSource.sendInvestmentToDB(new Investment("dana" + i, "dana" + i, "dana" + i, 0.00, 0.00,"dana" + i, 0.00, 0.00, 0.00,"dana" + i, 0.00));
         }
         // get the listview
         expListView = view.findViewById(R.id.lvExp);

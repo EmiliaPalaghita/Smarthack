@@ -66,9 +66,14 @@ public class InvestmentDataSource { private DatabaseReference table;
         List<String> list = new ArrayList<>();
         list.add(i.getDate());
         list.add(i.getAmt());
-        list.add(i.getCategory());
-        list.add(i.getSubCategory());
-        list.add(i.getProfit());
+        list.add(i.getClose().toString());
+        list.add(i.getHigh().toString());
+        list.add(i.getIndustry());
+        list.add(i.getLow().toString());
+        list.add(i.getOpen().toString());
+        list.add(i.getPredictedValue().toString());
+        list.add(i.getSector());
+        list.add(i.getVolum().toString());
         return list;
     }
 
