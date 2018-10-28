@@ -1,45 +1,54 @@
-package com.example.pemil.smarthack;
+package com.example.pemil.smarthack.ui.home;
 
-import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ExpandableListView;
-
 import com.example.pemil.smarthack.Models.ExpandableListAdapter;
+import com.example.pemil.smarthack.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class InvestmentActivity extends Activity {
+public class MyInvestmentFragment extends Fragment {
 
-    com.example.pemil.smarthack.Models.ExpandableListAdapter listAdapter;
+    ExpandableListAdapter listAdapter;
     ExpandableListView expListView;
     List<String> listDataHeader;
     HashMap<String, List<String>> listDataChild;
 
+    @Nullable
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.invest_long_version, container, false);
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
         // get the listview
-        expListView = (ExpandableListView) findViewById(R.id.lvExp);
+        expListView = view.findViewById(R.id.lvExp);
 
         // preparing list data
         prepareListData();
 
-        listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+        listAdapter = new ExpandableListAdapter(this.getContext(), listDataHeader, listDataChild);
 
         // setting list adapter
         expListView.setAdapter(listAdapter);
     }
 
-    /*
-     * Preparing the list data
-     */
     private void prepareListData() {
-        listDataHeader = new ArrayList<String>();
-        listDataChild = new HashMap<String, List<String>>();
+        listDataHeader = new ArrayList<>();
+        listDataChild = new HashMap<>();
 
         // Adding child data
         listDataHeader.add("Top 250");
@@ -47,7 +56,7 @@ public class InvestmentActivity extends Activity {
         listDataHeader.add("Coming Soon..");
 
         // Adding child data
-        List<String> top250 = new ArrayList<String>();
+        List<String> top250 = new ArrayList<>();
         top250.add("The Shawshank Redemption");
         top250.add("The Godfather");
         top250.add("The Godfather: Part II");
@@ -56,7 +65,7 @@ public class InvestmentActivity extends Activity {
         top250.add("The Dark Knight");
         top250.add("12 Angry Men");
 
-        List<String> nowShowing = new ArrayList<String>();
+        List<String> nowShowing = new ArrayList<>();
         nowShowing.add("The Conjuring");
         nowShowing.add("Despicable Me 2");
         nowShowing.add("Turbo");
@@ -64,7 +73,7 @@ public class InvestmentActivity extends Activity {
         nowShowing.add("Red 2");
         nowShowing.add("The Wolverine");
 
-        List<String> comingSoon = new ArrayList<String>();
+        List<String> comingSoon = new ArrayList<>();
         comingSoon.add("2 Guns");
         comingSoon.add("The Smurfs 2");
         comingSoon.add("The Spectacular Now");
@@ -75,5 +84,4 @@ public class InvestmentActivity extends Activity {
         listDataChild.put(listDataHeader.get(1), nowShowing);
         listDataChild.put(listDataHeader.get(2), comingSoon);
     }
-
 }
