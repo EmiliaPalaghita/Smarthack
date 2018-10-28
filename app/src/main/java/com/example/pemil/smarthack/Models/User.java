@@ -11,7 +11,6 @@ package com.example.pemil.smarthack.Models;
 public class User {
 
     private String name;
-    private String surname;
     private String country;
     private String birthday;
     private Long telephone;
@@ -20,10 +19,9 @@ public class User {
     private String URI;
     private String account;
 
-    public User(String name, String surname, String country, String birthday,
+    public User(String name, String country, String birthday,
                 Long telephone, String email, String id, String URI, String account) {
         this.name = name;
-        this.surname = surname;
         this.country = country;
         this.birthday = birthday;
         this.telephone = telephone;
@@ -43,14 +41,6 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
     }
 
     public String getCountry() {
@@ -113,7 +103,6 @@ public class User {
     public String toString() {
         return "User{" +
                 "name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
                 ", country='" + country + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", telephone=" + telephone +

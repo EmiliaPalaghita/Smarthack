@@ -10,7 +10,7 @@ public class UserDataSource {
     private DatabaseReference table;
     private FirebaseAuth auth;
     private FirebaseDatabase dataBase;
-    private static User thisUser;
+    public static User thisUser;
 
     public UserDataSource() {
         this.auth = FirebaseAuth.getInstance();
@@ -53,7 +53,6 @@ public class UserDataSource {
     public User createNewUser(FirebaseUser currentUser) {
         return new User(
                 currentUser.getDisplayName(),
-                null,
                 null,
                 null,
                 null,
