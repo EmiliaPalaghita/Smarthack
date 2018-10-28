@@ -14,6 +14,9 @@ import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.series.PointsGraphSeries
 import kotlinx.android.synthetic.main.home_fragment.*
+import com.github.mikephil.charting.data.BarData
+
+
 
 class HomeFragment : Fragment() {
 
@@ -38,9 +41,7 @@ class HomeFragment : Fragment() {
         all_money_graph.addSeries(point_data)
         all_money_graph.addSeries(line_data)
 
-        val chart = R.id.barchart as BarChart
-
-        val dataObjects = floatArrayOf(1f, 2f, 3f, 4f, 5f)
+        val chart = barchart as BarChart
 
         val entries = ArrayList<BarEntry>()
         entries.add(BarEntry(0f, 30f))
@@ -52,5 +53,11 @@ class HomeFragment : Fragment() {
         entries.add(BarEntry(6f, 60f))
 
         val set = BarDataSet(entries, "BarDataSet")
+
+        val data = BarData(set)
+        data.barWidth = 0.9f // set custom bar width
+        chart.data = data
+        chart.setFitBars(true) // make the x-axis fit exactly all bars
+        chart.invalidate() // refresh
     }
 }
