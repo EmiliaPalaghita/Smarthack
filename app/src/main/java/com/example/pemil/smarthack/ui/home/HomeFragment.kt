@@ -7,6 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.example.pemil.smarthack.R
+import com.github.mikephil.charting.charts.BarChart
+import com.github.mikephil.charting.data.BarDataSet
+import com.github.mikephil.charting.data.BarEntry
 import com.jjoe64.graphview.series.DataPoint
 import com.jjoe64.graphview.series.LineGraphSeries
 import com.jjoe64.graphview.series.PointsGraphSeries
@@ -24,7 +27,6 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         //TODO - de luat lista de investitii si calculat pentru toate profit
         all_money_graph.title = "All investments from last 30 days"
         val point_data = PointsGraphSeries<DataPoint>(arrayOf(DataPoint(0.0, 1.0), DataPoint(1.0, 5.0), DataPoint(2.0, 3.0), DataPoint(3.0, 2.0), DataPoint(4.0, 6.0)))
@@ -35,5 +37,20 @@ class HomeFragment : Fragment() {
         }
         all_money_graph.addSeries(point_data)
         all_money_graph.addSeries(line_data)
+
+        val chart = R.id.barchart as BarChart
+
+        val dataObjects = floatArrayOf(1f, 2f, 3f, 4f, 5f)
+
+        val entries = ArrayList<BarEntry>()
+        entries.add(BarEntry(0f, 30f))
+        entries.add(BarEntry(1f, 80f))
+        entries.add(BarEntry(2f, 60f))
+        entries.add(BarEntry(3f, 50f))
+        // gap of 2f
+        entries.add(BarEntry(5f, 70f))
+        entries.add(BarEntry(6f, 60f))
+
+        val set = BarDataSet(entries, "BarDataSet")
     }
 }
